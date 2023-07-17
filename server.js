@@ -21,8 +21,30 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static("website"));
 
+app.get("/projectData", (_, res) => {
+  console.log("[GET] projectData", projectData);
+
+  res.status(200).send(projectData);
+});
+
+app.post("/projectData", (req, res) => {
+  projectData = {
+    date: req.body.date,
+    temp: req.body.temp,
+    content: req.body.content,
+  };
+
+  console.log("[POST] projectData", projectData);
+
+  res.status(200).send({
+    success: true,
+    message: "Data saved successfully",
+    data: projectData,
+  });
+});
+
 // Setup Server
 app.listen(PORT, () => {
-  console.log("server running...");
-  console.log(`running on localhost: ${PORT}`);
+  console.log("Server running...");
+  console.log(`Running on localhost: ${PORT}`);
 });
